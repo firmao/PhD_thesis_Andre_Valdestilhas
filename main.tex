@@ -1,0 +1,270 @@
+\documentclass[ oneside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
+                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                 ngerman,american,%
+                ]{scrreprt}
+                
+%\documentclass[a4paper,twoside,abstracton,12pt,BCOR=15mm]{scrreprt}
+
+%********************************************************************
+% Note: Make all your adjustments in here
+%*******************************************************
+\input{classicthesis-config}
+
+\usepackage[automark,headsepline]{scrpage2}
+%\usepackage{blindtext}
+%\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+%\usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
+%\usepackage{amsmath,amssymb}
+%\usepackage{amsthm}
+%\usepackage{verbatim}
+%\usepackage{color,graphicx}
+%\usepackage{microtype}
+\usepackage{import}
+
+\usepackage{qname}
+\setprefix{owl}{http://www.w3.org/2002/07/owl\#}
+\setprefix{dbpedia}{http://dbpedia.org/resource/}
+
+%\newcommand{\xmark}{\ding{55}}%
+
+\newcommand{\E}{{\mathcal{E}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\ds}{{\ensuremath{D_s}}}
+\newcommand{\dt}{{\ensuremath{D_t}}}
+
+\newcommand{\func}[2]{\textnormal{#1}(#2)}
+\newcommand{\f}[1]{\func{f}{#1}}
+\newcommand{\h}[1]{\func{h}{#1}}
+
+\DeclareRobustCommand{\hr3}{{$\mathcal{HR}^3$}}
+
+\usepackage{url}
+\usepackage{todonotes}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{aurl}
+\usepackage{upgreek}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{hyperref}
+\usepackage{cleveref} 
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.85]{beramono}
+\usepackage{listings}
+\usepackage{filecontents}
+\lstset{language=SQL,morekeywords={PREFIX,java,rdf,rdfs,url}}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+\usepgfplotslibrary{groupplots}
+\usetikzlibrary{patterns}
+
+\usetikzlibrary{graphs}
+
+\usepackage{makeidx}
+\makeindex
+
+\pagestyle{scrheadings}
+\automark[section]{chapter}
+
+% Pflichtbestandteile der Arbeit nach Promotionsordnung:
+% - vorgeschriebenes Deckblatt
+% - CV
+% - bibliographische Daten
+% - SelbstÃ¤ndigkeitserklÃ¤rung
+% - Inhaltsverzeichnis
+% - Literaturverzeichnis
+
+% avoid placing figures/screenshots on a page by itself with no text
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+
+\begin{document}
+
+\renewcommand{\thepage}{\Roman{page}}
+
+% Deckblatt entspricht Promotionsordnung
+\begin{titlepage}
+%\pagestyle{empty}
+
+\begin{center}
+\large
+
+$\quad$\\
+$\quad$\\
+%{\Huge Exploring the quality of linksets on linked data}\\
+%{\Huge Identifying, Relating and Querying datasets on the Web of Data}\\ 
+%{\Huge Identifying, Integrating and Querying datasets on the Web of Data}\\
+{\Huge Identifying, Relating and Querying Large Heterogeneous RDF Sources}\\
+%(draft revision \svnrev{})\\
+\vspace{1cm}
+Der Fakult\"at f\"ur Mathematik und Informatik\\
+der Universit\"at Leipzig\\
+eingereichte\\
+\vspace{1cm}
+{\Huge DISSERTATION}\\
+\vspace{1cm}
+zur Erlangung des akademischen Grades\\
+\vspace{1cm}
+{\Large \scshape{Doctor Rerum Naturalium}}\\
+(Dr. rer. nat.)\\
+\vspace{1cm}
+im Fachgebiet\\
+{\large Informatik}\\
+\vspace{1cm}
+vorgelegt\\
+\vspace{1cm}
+{von \textbf{Dipl.-Inf. Andre Valdestilhas}}\\
+\vspace{1cm}
+geboren am 14. Feb. 1980 in Sao Bernardo do Campo-SP, Brazil\\
+\vspace{1cm}
+Leipzig, den \the\day.\the\month.\the\year
+
+\vfill
+%\includegraphics[width=0.30\textwidth]{siegel_grau.eps}
+%\includegraphics[width=0.30\textwidth]{424_m_gr.EPS}
+
+\end{center}
+\cleardoublepage
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\begingroup 
+    \let\clearpage\relax
+    \let\cleardoublepage\relax
+    \let\cleardoublepage\relax
+    %*******************************************************
+    % List of Todos
+    %*******************************************************    
+    %\phantomsection 
+    %\refstepcounter{dummy}
+    %\addcontentsline{toc}{chapter}{\listfigurename}
+    %\pdfbookmark[1]{\listoftodos}{lof}
+    %\listoftodos
+
+    %\vspace*{8ex}
+    
+    %*******************************************************
+    % List of Figures
+    %*******************************************************    
+    \addcontentsline{toc}{chapter}{List of Figures}
+    \pdfbookmark[1]{\listfigurename}{lof}
+    \listoffigures
+    \vspace*{8ex}
+
+    %*******************************************************
+    % List of Tables
+    %*******************************************************
+    \newpage
+    \addcontentsline{toc}{chapter}{List of Tables}
+    \pdfbookmark[1]{\listtablename}{lot}
+    \listoftables
+    \vspace*{8ex}
+    
+    %----------------------------------------------------------------------------------------
+	%	List of Algorithms
+	%----------------------------------------------------------------------------------------
+% \newpage
+% 	\refstepcounter{dummy}
+% 	\let\oldnumberline\numberline
+% 	\renewcommand{\numberline}{Algorithm~\oldnumberline}
+% 	\pdfbookmark[1]{List of Algorithms}{loa} % Bookmark name visible in a PDF viewer
+% 	\listofalgorithms
+% 	\vspace*{8ex}
+% \endgroup
+
+
+% main content goes here
+\newpage
+\chapter{Abstract}
+\import{sections/}{Abstract.tex}
+
+\newpage
+\chapter{Publications}
+\import{sections/}{publications.tex}
+
+\newpage
+\chapter{ACKNOWLEDGMENTS}
+\import{sections/}{ACKNOWLEDGMENTS.tex}
+
+\newpage
+\chapter{Introduction}
+
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+
+\import{sections/}{Introduction.tex}
+
+\newpage
+\chapter{Basic Concepts and Notation} \label{ch:preliminaries}
+\import{sections/}{preliminaries.tex}
+
+\newpage
+\chapter{State of the Art} \label{ch:soa}
+\import{sections/}{soa.tex}
+
+\newpage
+\chapter{Identifying Datasets in Large Heterogeneous RDF sources} \label{ch:wimu}
+\import{sections/}{wimu.tex}
+
+\newpage
+\chapter{Relating Large amount of RDF datasets} \label{ch:lodindex}
+\import{sections/}{LodIndex.tex}
+
+\newpage
+\chapter{Obtaining Similar Resources using String Similarity} \label{ch:mfkc}
+\import{sections/}{MFKC.tex}
+
+\newpage
+\chapter{Heterogeneity in DBpedia Identifiers} \label{ch:dbpediasameas}
+\import{sections/}{DBpediaSameAs.tex}
+
+\newpage
+\chapter{Detection of Erroneous Links in Large-Scale RDF datasets} \label{ch:cedal}
+\import{sections/}{CEDAL.tex}
+
+\newpage
+\chapter{Querying Large Heterogeneous RDF Datasets} \label{ch:wimuq}
+\import{sections/}{wimuq.tex}
+
+\newpage
+\chapter{Conclusion} \label{ch:conclusion}
+\import{sections/}{Conclusion.tex}
+
+\appendix
+
+\newpage
+\chapter{Appendix}
+\import{sections/}{Applications.tex}
+
+\newpage
+\chapter{CV} \label{ch:cv}
+\import{sections/}{CV.tex}
+
+%\chapter{Expose} \label{ch:expose}
+%\import{sections/}{Expose.tex}
+\newpage
+\bibliographystyle{apalike}
+\bibliography{aksw,personal}
+
+% \clearpage\phantomsection\addcontentsline{toc}{chapter}{I do not know}\chapter*{I simply do not know}
+
+% I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know I do not know.
+
+\vspace{20pt}\noindent
+Leipzig, den \the\day.\the\month.\the\year
+
+\vspace{80pt}\noindent
+Andre Valdestilhas
+
+\end{document}
